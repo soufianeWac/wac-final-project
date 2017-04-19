@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+{% if userConnected == true %}
+<a href="/deconnexion">deconnexion</a>
+{% else %}
+<a href="/connexion">se connecter</a>
+{% endif %}
+
+{% if infos != null %}
+<video src="{{ absolute_url('video_h/') }}{{infos.user_id}}/{{infos.file}}" height="100px" width="200px" loop controls="controls" preload="none"></video>
+<h4>{{infos.name}}</h4>
+<p>{{infos.desc}}</p>
+<p>{{date}}</p>
+<p>Catégorie : {{category}}</p>
+<p>Commentaire : <span class="count-com">{{nbrCom.count}}</span></p>
+{{ form_start(formCommentaire, {'attr':{'novalidate': 'novalidate','class':'form-horizontal','id':'form-commentaire'}}) }}
+<input type="hidden" name="video_id" value="{{infos.id}}">
+{{ form_end(formCommentaire) }}
+<div class="error"></div>
+<button class="valid-com">Valider</button>
+<div id="js">
+{% for comment in comment %}
+	<div class="commentaire">
+		<p class="content">{{ comment.content }}</p>
+		<b>Posté le : {{ comment.created_at }}</b>
+		{% if app.session.get('user') != null and app.session.get('user')['userInfo'] == comment.user_id %}
+			<button class="delete-com" data-id="{{ comment.id }}">suppr</button>
+		{% endif %}
+	</div>
+{% endfor %}
+</div>
+<div class="videoplus"></div>
+{% if nbrCom.count > '10' %}
+<button class="plus" data-id="{{infos.id}}">Voir plus</button>
+{% endif %}
+{% else %}
+<li>Aucune vidéo trouvée</li>
+{% endif %}
+<script
+src="https://code.jquery.com/jquery-3.2.1.min.js"
+integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+crossorigin="anonymous"></script>
+<script type="text/javascript" src="{{ absolute_url('views/js/vidincloud.js') }}"></script>
+</body>
+</html>

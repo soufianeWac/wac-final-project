@@ -1,0 +1,26 @@
+{% if userConnected == true %}
+<a href="/deconnexion">deconnexion</a>
+{% if edit == true %}
+<a href="/edit{{ userConnected.userInfo }}">éditer le profil</a>
+{% endif %}
+{% else %}
+<a href="/connexion">se connecter</a>
+
+{% endif %}
+{% for user in userPageProfil %}
+    <li>{{ user }}</li>
+{% else %}
+    <li><em>no user found</em></li>
+{% endfor %}
+
+
+<div>
+{% if lastVideo != null %}
+	<video src="{{ absolute_url('video_h/') }}{{lastVideo.user_id}}/{{lastVideo.file}}" height="20%" width="100%" loop controls="controls" preload="none"></video>
+	<a href="{{ absolute_url('/video') }}{{lastVideo.id}}"><h4>{{lastVideo.name}}</h4></a>
+	<p>{{lastVideo.desc}}</p>
+	<p>{{dateLastVideo}}</p>
+	<p>Catégorie : {{category}}</p>
+{% endif %}
+</div>
+
