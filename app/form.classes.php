@@ -292,7 +292,7 @@ class FormConstraintEditProfil extends AbstractType
 			)
 		)
     ->add(
-    	'imageVideo',
+    	'avatar',
 			FileType::class,
     	[
     		'required' => false,

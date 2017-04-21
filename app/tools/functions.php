@@ -92,27 +92,57 @@ function datediff($interval, $datefrom, $dateto, $using_timestamps = false) {
 
 function formatDatePost($date)
 {
-
-    if(ltrim(datediff('m', date("j-m-Y H:i:s"), $date, false),'-') >= 12){
-        $newDate = 'Posté il y à '.ltrim(datediff('yyyy', date("j-m-Y H:i:s"), $date, false), '-').'ans';
+    if(ltrim(datediff('n', date("j-m-Y H:i:s"), $date, false),'-') >= 525600){
+        $newDate = 'Posté il y a '.ltrim(datediff('yyyy', date("j-m-Y H:i:s"), $date, false), '-').'ans';
     }
-    elseif(ltrim(datediff('m', date("j-m-Y H:i:s"), $date, false),'-') >= 1){
-        $newDate = 'Posté il y à '.ltrim(datediff('m', date("j-m-Y H:i:s"), $date, false), '-').'mois';
+    elseif(ltrim(datediff('n', date("j-m-Y H:i:s"), $date, false), '-') >= 43800){
+        $newDate = 'Posté il y a '.ltrim(datediff('m', date("j-m-Y H:i:s"), $date, false), '-').'mois';
     }
-    elseif(ltrim(datediff('d', date("j-m-Y H:i:s"), $date, false),'-') >= 7) {
-        $newDate = 'Posté il y à '.ltrim(datediff('ww', date("j-m-Y H:i:s"), $date, false), '-').'sem';
+    elseif(ltrim(datediff('n', date("j-m-Y H:i:s"), $date, false),'-') >= 10080) {
+        $newDate = 'Posté il y a '.ltrim(datediff('ww', date("j-m-Y H:i:s"), $date, false), '-').'sem';
     }
-    elseif(ltrim(datediff('d', date("j-m-Y H:i:s"), $date, false),'-') >= 1) {
-        $newDate = 'Posté il y à '.ltrim(datediff('d', date("j-m-Y H:i:s"), $date, false), '-').' j';
+    elseif(ltrim(datediff('n', date("j-m-Y H:i:s"), $date, false), '-') >= 1440) {
+        $newDate = 'Posté il y a '.ltrim(datediff('d', date("j-m-Y H:i:s"), $date, false), '-').' j';
     }
-    elseif(ltrim(datediff('d', date("j-m-Y H:i:s"), $date, false),'-') < 1){
-        $newDate = 'Posté il y à '.ltrim(datediff('h', date("j-m-Y H:i:s"), $date, false), '-').' h';
+    elseif(ltrim(datediff('n', date("j-m-Y H:i:s"), $date, false), '-') >= 60){
+        $newDate = 'Posté il y a '.ltrim(datediff('h', date("j-m-Y H:i:s"), $date, false), '-').' h';
     }
-    elseif(ltrim(datediff('h', date("j-m-Y H:i:s"), $date, false),'-') < 1){
-        $newDate = 'Posté il y à '.ltrim(datediff('n', date("j-m-Y H:i:s"), $date, false), '-').'min';
+    elseif(ltrim(datediff('n', date("j-m-Y H:i:s"), $date, false), '-') < 60){
+        $newDate = 'Posté il y a '.ltrim(datediff('n', date("j-m-Y H:i:s"), $date, false), '-').'min';
     }
     else{
         $newDate = 'Posté le '.date('j-m-Y', strtotime($date));
     }
     return $newDate;
+}
+
+function renderNbrOfVideoInCategory($app)
+{
+    $arrayCategory = [
+        'Chanson' => countVideoCategory($app, 1),
+        'Tutoriel' => countVideoCategory($app, 2),
+        'Politique' => countVideoCategory($app, 3),
+        'Culture' => countVideoCategory($app, 4),
+        'Cinema' => countVideoCategory($app, 5),
+        'Jeux&tech' => countVideoCategory($app, 6),
+        'Sport' => countVideoCategory($app, 7),
+        'Divers' => countVideoCategory($app, 8)
+    ];
+    return $arrayCategory;
+}
+
+function rmFolder($dir) { 
+    if (is_dir($dir)) { 
+        $objects = scandir($dir); 
+        foreach ($objects as $object) { 
+           if ($object != "." && $object != "..") 
+           { 
+            if (is_dir($dir."/".$object))
+                rmFolder($dir."/".$object);
+            else
+               unlink($dir."/".$object); 
+            } 
+        }
+        rmdir($dir); 
+    } 
 }

@@ -22,14 +22,15 @@ function updateTokenValidation($app, $id, $token)
 /*---------------------------------------------------------------------*/
 /*             					 	//FUNCTION USER SUBSCRIBE//               	 */
 /*---------------------------------------------------------------------*/
-function userSubscribe($app, $dataForm, $token_validation)
+function userSubscribe($app, $dataForm, $token_validation, $avatar)
 {
-	$sqlRequest = 'INSERT INTO `users`(`civility`,`lastname`,`firstname`,`birthdate`,`mail`,`username`,`password`,`check_term`,`token_validation`)VALUES(?,?,?,?,?,?,?,?,?)'; 
+	$sqlRequest = 'INSERT INTO `users`(`civility`,`lastname`,`firstname`,`birthdate`,`avatar`,`mail`,`username`,`password`,`check_term`,`token_validation`)VALUES(?,?,?,?,?,?,?,?,?,?)'; 
 	$resultReq = $app['db']->executeUpdate($sqlRequest, [
 		$dataForm['civility'],
 		$dataForm['lastname'],
 		$dataForm['firstname'],
 		$dataForm['birthdate'],
+		'none',
 		$dataForm['mail'],
 		$dataForm['username'],
 		md5($dataForm['password'].SALT),
@@ -162,21 +163,39 @@ function deleteCom($app, $id, $userId)
 	return $resultReq;
 }
 /*---------------------------------------------------------------------*/
+/*             		//FUNCTION DELETE ALL COMMENT OF USER//              */
+/*---------------------------------------------------------------------*/
+function deleteAllComOfUser($app, $userId)
+{
+	$sqlRequest = 'DELETE FROM `commentaire_video` WHERE user_id = ?';
+	$resultReq = $app['db']->executeUpdate($sqlRequest, [$userId]);
+	return $resultReq;
+}
+/*---------------------------------------------------------------------*/
 /*             						//FUNCTION DELETE ACCOUNT//               	 */
 /*---------------------------------------------------------------------*/
 function deleteAccount($app, $id)
 {
-	$sqlRequest = 'DELETE FROM `commentaire_video` WHERE user_id = ?';
+	$sqlRequest = 'DELETE FROM `users` WHERE id = ?';
 	$resultReq = $app['db']->executeUpdate($sqlRequest, [$id]);
 	return $resultReq;
 }
 /*---------------------------------------------------------------------*/
-/*             						//FUNCTION DELETE VIDEO//               	 */
+/*             						 //FUNCTION DELETE VIDEO//               	   */
 /*---------------------------------------------------------------------*/
 function deleteVideo($app, $id, $userId)
 {
 	$sqlRequest = 'DELETE FROM `video_home` WHERE id = ? AND user_id = ?';
 	$resultReq = $app['db']->executeUpdate($sqlRequest, [$id, $userId]);
+	return $resultReq;
+}
+/*---------------------------------------------------------------------*/
+/*             		//FUNCTION DELETE ALL VIDEO OF USER//                */
+/*---------------------------------------------------------------------*/
+function deleteAllVideoUser($app, $userId)
+{
+	$sqlRequest = 'DELETE FROM `video_home` WHERE user_id = ?';
+	$resultReq = $app['db']->executeUpdate($sqlRequest, [$userId]);
 	return $resultReq;
 }
 /*---------------------------------------------------------------------*/
@@ -195,5 +214,38 @@ function countCom($app, $id)
 {
 	$sqlRequest = 'SELECT COUNT(*) AS "count" FROM `commentaire_video` WHERE video_id = ?';
 	$resultReq = $app['db']->fetchAssoc($sqlRequest, [$id]);
+	return $resultReq;
+}
+/*---------------------------------------------------------------------*/
+/*             		//FUNCTION LIST RECENT VIDEO USER//               	 */
+/*---------------------------------------------------------------------*/
+function listRecentVideoUser($app, $id, $lastDate, $dateNow)
+{
+	$sqlRequest = 'SELECT * FROM `video_home` WHERE `user_id` = ? AND `created_at` BETWEEN ? AND ? ORDER BY `created_at` DESC LIMIT 1,30';
+	$resultReq = $app['db']->fetchAll($sqlRequest, [$id, $lastDate, $dateNow]);
+	return $resultReq;
+}
+/*---------------------------------------------------------------------*/
+/*---------------------------------------------------------------------*/
+/*---------------------------------------------------------------------*/
+/*---------------------------------------------------------------------*/
+/*---------------------------------------------------------------------*/
+/*---------------------------------------------------------------------*/
+/*             		//FUNCTION COUNT VIDEO ON CATEGORY//               	 */
+/*---------------------------------------------------------------------*/
+function countVideoCategory($app, $id)
+{
+	$sqlRequest = 'SELECT COUNT(*) AS "count" FROM `video_home` WHERE category_id = ?';
+	$resultReq = $app['db']->fetchAssoc($sqlRequest, [$id]);
+	return $resultReq;
+}
+/*---------------------------------------------------------------------*/
+/*             		//FUNCTION LIST VIDEO ON CATEGORY//               	 */
+/*---------------------------------------------------------------------*/
+function listVideoCategory($app, $id, $page = 1)
+{
+	$range = join(', ', [($page-1)*10, 1*10]);
+	$sqlRequest = 'SELECT * FROM `video_home` WHERE category_id = ? ORDER BY `created_at` DESC LIMIT '.$range;
+	$resultReq = $app['db']->fetchAll($sqlRequest, [$id]);
 	return $resultReq;
 }

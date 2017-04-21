@@ -41,6 +41,7 @@ require_once __DIR__.'/../app/controllers/inscriptionController.php';
 require_once __DIR__.'/../app/controllers/connexionController.php';
 require_once __DIR__.'/../app/controllers/homeController.php';
 require_once __DIR__.'/../app/controllers/videoController.php';
+require_once __DIR__.'/../app/controllers/categoryController.php';
 
 $app->error(function(\Exception $e, Request $request) use ($app) {
   $app['request'] = $request;

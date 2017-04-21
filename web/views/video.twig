@@ -15,7 +15,7 @@
 <h4>{{infos.name}}</h4>
 <p>{{infos.desc}}</p>
 <p>{{date}}</p>
-<p>Catégorie : {{category}}</p>
+<p>Catégorie : <a href="/category{{category.id}}">{{category.name}}</a>
 <p>Commentaire : <span class="count-com">{{nbrCom.count}}</span></p>
 {{ form_start(formCommentaire, {'attr':{'novalidate': 'novalidate','class':'form-horizontal','id':'form-commentaire'}}) }}
 <input type="hidden" name="video_id" value="{{infos.id}}">
@@ -28,7 +28,7 @@
 		<p class="content">{{ comment.content }}</p>
 		<b>Posté le : {{ comment.created_at }}</b>
 		{% if app.session.get('user') != null and app.session.get('user')['userInfo'] == comment.user_id %}
-			<button class="delete-com" data-id="{{ comment.id }}">suppr</button>
+			<button class="delete-com" data-id="{{ comment.id }}" onclick="deleteCom({{comment.id}}); $(this).parent().hide();">suppr</button>
 		{% endif %}
 	</div>
 {% endfor %}

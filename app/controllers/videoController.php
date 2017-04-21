@@ -27,7 +27,7 @@ $app->get('/video{id}', function(Request $request, $id) use($app)
 	return $app['twig']->render('video.twig', [
 		'userConnected' => $userSession,
 		'infos' => $video,
-		'category' => $category['name'],
+		'category' => $category,
 		'date' => formatDatePost($dateVideo),
 		'formCommentaire' => $form->createView(),
 		'comment' => $commentaire,
@@ -35,7 +35,8 @@ $app->get('/video{id}', function(Request $request, $id) use($app)
 	]);
 });
 
-$app->post('/video{id}', function(Request $request, $id) use ($app){
+$app->post('/video{id}', function(Request $request, $id) use ($app)
+{
   $page = $_POST['page'];
   $resSubmitForm['listCom'] = selectCom($app, $id, $page);
   $resSubmitForm['session'] = $app['session']->get('user')['userInfo'];

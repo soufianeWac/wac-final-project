@@ -35,9 +35,10 @@ $app->match('/inscription', function(Request $request) use($app){
       // $sess = $app['session']->set('user', array('user_token' => $token);
       $token = random_bytes(4);
       $token = strtoupper(bin2hex($token));
+      $avatar = 'views/img/avatar.png';
 
       //step1 - insert data of user in db with token
-      userSubscribe($app, $dataForm, $token);
+      userSubscribe($app, $dataForm, $token, $avatar);
       $lastUserId = $app['db']->lastInsertId();
 
       //step2 - insert token generate in db
@@ -46,7 +47,7 @@ $app->match('/inscription', function(Request $request) use($app){
       //step3 - send mail with token
 
       //step4 - redirect to form validation subscribe
-      // $form = $app['form.factory']->createBuilder(FormConstraintInscription::class)->getForm();
+      //$form = $app['form.factory']->createBuilder(FormConstraintInscription::class)->getForm();
 
       //step5 - create session and redirect to profil page
       $app['session']->set('user', array('userInfo' => $lastUserId));
