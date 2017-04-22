@@ -96,7 +96,7 @@ function userInfo($app, $id)
 function userVideo($app, $id)
 {
 	$sqlRequest = 'SELECT * FROM video_home WHERE user_id = ?';
-	$resultReq = $app['db']->fetchAssoc($sqlRequest, [$id]);
+	$resultReq = $app['db']->fetchAll($sqlRequest, [$id]);
 	return $resultReq;
 }
 /*---------------------------------------------------------------------*/
@@ -226,6 +226,15 @@ function listRecentVideoUser($app, $id, $lastDate, $dateNow)
 	return $resultReq;
 }
 /*---------------------------------------------------------------------*/
+/*             		//FUNCTION LIST RECENT VIDEO USER//               	 */
+/*---------------------------------------------------------------------*/
+function searchUser($app, $data)
+{
+	$sqlRequest = 'SELECT * FROM `users` WHERE `username` LIKE "%'.$data.'%" ';
+	$resultReq = $app['db']->fetchAll($sqlRequest, [$data]);
+	return $resultReq;
+}
+/*---------------------------------------------------------------------*/
 /*---------------------------------------------------------------------*/
 /*---------------------------------------------------------------------*/
 /*---------------------------------------------------------------------*/
@@ -247,5 +256,40 @@ function listVideoCategory($app, $id, $page = 1)
 	$range = join(', ', [($page-1)*10, 1*10]);
 	$sqlRequest = 'SELECT * FROM `video_home` WHERE category_id = ? ORDER BY `created_at` DESC LIMIT '.$range;
 	$resultReq = $app['db']->fetchAll($sqlRequest, [$id]);
+	return $resultReq;
+}
+/*---------------------------------------------------------------------*/
+/*---------------------------------------------------------------------*/
+/*---------------------------------------------------------------------*/
+/*---------------------------------------------------------------------*/
+/*---------------------------------------------------------------------*/
+/*---------------------------------------------------------------------*/
+/*             							//FUNCTION FOLLOW//               	 		 	 */
+/*---------------------------------------------------------------------*/
+function addFollower($app, $userId, $followedId)
+{
+	$sqlRequest = 'INSERT INTO `followers`(`user_id`,`followed_id`)VALUES(?,?)';
+	$resultReq = $app['db']->executeUpdate($sqlRequest, [$userId, $followedId]);
+	return $resultReq;
+}
+
+function unfollow($app, $userId, $followedId)
+{
+	$sqlRequest = 'DELETE FROM `followers` WHERE user_id = ? AND followed_id = ?';
+	$resultReq = $app['db']->executeUpdate($sqlRequest, [$userId, $followedId]);
+	return $resultReq;
+}
+
+function renderVideoFollower($app, $userId)
+{
+	$sqlRequest = 'SELECT `video_home`.*,`followers`.* FROM `video_home` INNER JOIN `followers` ON video_home.user_id = followers.followed_id WHERE followers.user_id = ?';
+	$resultReq = $app['db']->fetchAll($sqlRequest, [$userId]);
+	return $resultReq;
+}
+
+function renderUserfollow($app, $profilId)
+{
+	$sqlRequest = 'SELECT `users`.*, `followers`.* FROM `users` INNER JOIN `followers` ON users.id = followers.user_id WHERE followers.followed_id = ?';
+	$resultReq = $app['db']->fetchAll($sqlRequest, [$profilId]);
 	return $resultReq;
 }

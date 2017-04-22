@@ -224,7 +224,16 @@ class VideoFormConstraint extends AbstractType
     			new Constraints\File(
           [
             'maxSize' => '2000M',
-            'mimeTypes' => ['video/avi','video/mpeg','video/x-mpeg','video/quicktime','video/mp4'],
+            'mimeTypes' => [
+            	'video/avi', 
+            	'video/mpeg',
+            	'video/x-mpeg',
+            	'video/quicktime',
+            	'video/mp4',
+            	'application/x-troff-msvideo',
+            	'video/msvideo',
+            	'video/x-msvideo'
+            ],
             'mimeTypesMessage' => "Les formats de video suporté sont mp4, AVI, quicktime et mpeg",
             'maxSizeMessage' => "Le fichier téléchargé ne doit pas dépasser les 2000M",
           ]),
@@ -308,4 +317,23 @@ class FormConstraintEditProfil extends AbstractType
     	]
     );
   }
+}
+/*---------------------------------------------------------------------*/
+/*                   //CONSTRUCT SEARCH PROFIL FORM//                	 */
+/*---------------------------------------------------------------------*/
+class SearchFormConstraint extends AbstractType
+{
+  public function buildForm(FormBuilderInterface $builder, array $options)
+  {
+		return $builder->add(
+			'profilsearch',
+			TextType::class,
+			[
+				'required' => false,
+				'constraints' => [
+					new Constraints\NotBlank(['message' => 'Veuillez saisir un nom d\'utilisateur']),
+				]
+			]
+		);
+	}
 }

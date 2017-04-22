@@ -79,6 +79,29 @@ $(document).ready(function(){
         }); 
       });
     });
+
+    $('#btn-follower').click(function(e)
+    {
+      e.preventDefault();
+      var idUser = $(this).data('iduser');
+      var idFollower = $(this).data('idfollower');
+      $.post('/add_follower'+idUser+'/'+idFollower, function(data){
+        $('#btn-follower').html('NE PLUS SUIVRE');
+        $('#btn-follower').attr('id','btn-unfollow');
+      });
+    });
+
+    $('#btn-unfollow').click(function(e)
+    {
+      e.preventDefault();
+      var idUser = $(this).data('iduser');
+      var idFollower = $(this).data('idfollower');
+      $.post('/unfollow'+idUser+'/'+idFollower, function(data){
+        $('#btn-follower').attr('id','btn-follower');
+        $('#btn-unfollow').html('SUIVRE');
+      });
+    });
+
 });
 
 function deleteCom(idCom)

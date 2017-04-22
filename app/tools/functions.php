@@ -107,6 +107,9 @@ function formatDatePost($date)
     elseif(ltrim(datediff('n', date("j-m-Y H:i:s"), $date, false), '-') >= 60){
         $newDate = 'Posté il y a '.ltrim(datediff('h', date("j-m-Y H:i:s"), $date, false), '-').' h';
     }
+    elseif(ltrim(datediff('n', date("j-m-Y H:i:s"), $date, false), '-') == 0){
+        $newDate = 'Posté il y a moins d\'une min';
+    }
     elseif(ltrim(datediff('n', date("j-m-Y H:i:s"), $date, false), '-') < 60){
         $newDate = 'Posté il y a '.ltrim(datediff('n', date("j-m-Y H:i:s"), $date, false), '-').'min';
     }
@@ -145,4 +148,15 @@ function rmFolder($dir) {
         }
         rmdir($dir); 
     } 
+}
+
+function process($action){
+    $res = [];
+    if($action)
+    {
+        $res['request'] = 'valid';
+    }else{
+        $res['request'] = 'notvalid';
+    }
+    return json_encode($res);
 }

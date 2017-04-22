@@ -5,11 +5,16 @@
 </head>
 <body>
 {% if userPageProfil == true %}
+	{{ form_start(form) }}
+		<input type="submit" name="search-profil">
+	{{ form_end(form) }}
 	{% if userConnected == true %}
 	<a href="/deconnexion">deconnexion</a>
 	{% if actionUser == true %}
 		<a href="/usr{{ userConnected.userInfo }}/edition">éditer le profil</a>
 		<button class="delete-account" onclick="deleteAccount({{userConnected.userInfo}})">supprimer mon compte</button>
+		{% else %}
+		 <button data-iduser="{{userConnected.userInfo}}" data-idfollower="{{userPageProfil.id}}" {% if followed.value != true %}id="btn-follower"{% else %}id="btn-unfollow"{% endif %}>{{followed.str}}</button>
 	{% endif %}
 	{% else %}
 	<a href="/connexion">se connecter</a>
@@ -28,7 +33,7 @@
 
 	<div>
 	{% if lastVideo != null %}
-		<video src="{{ absolute_url('video_h/') }}{{lastVideo.user_id}}/{{lastVideo.file}}" height="20%" width="50%" loop controls="controls" preload="none"></video>
+		<video src="{{ absolute_url('video_h/') }}{{lastVideo.user_id}}/{{lastVideo.file}}" type="application/x-troff-msvideo" height="20%" width="50%" loop controls="controls" preload="none"></video>
 		<a href="{{ absolute_url('/video') }}{{lastVideo.id}}"><h4>{{lastVideo.name}}</h4></a>
 		<p>{{lastVideo.desc}}</p>
 		<p>{{dateLastVideo}}</p>
@@ -38,10 +43,15 @@
 	<h3>Dernières videos ajoutée</h3>
 	{% for recentVideo in listOfRecentPost %}
 		<div>
-		<video src="{{ absolute_url('video_h/') }}{{recentVideo.user_id}}/{{recentVideo.file}}" height="100px" width="200px" loop controls="controls" preload="none"></video>
+		<video src="{{ absolute_url('video_h/') }}{{recentVideo.user_id}}/{{recentVideo.file}}" type="application/x-troff-msvideo" height="100px" width="200px" loop controls="controls" preload="none"></video>
 		<a href="{{ absolute_url('/video') }}{{recentVideo.id}}"><h4>{{recentVideo.name}}</h4></a>
 		<span>{{userPageProfil.username}}</span>
 		</div>
+	{% endfor %}
+	<h3>Vidéos de followers</h3>
+	{% for videoUserFollowed in listVideoUserFollowed %}
+	<video src="{{ absolute_url('video_h/') }}{{videoUserFollowed.user_id}}/{{videoUserFollowed.file}}" height="100px" width="200px" loop controls="controls" preload="none"></video>
+	<p>{{videoUserFollowed.name}}</p>
 	{% endfor %}
 {% else %}
 <p>not user found</p>
@@ -50,6 +60,7 @@
 src="https://code.jquery.com/jquery-3.2.1.min.js"
 integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 crossorigin="anonymous"></script>
+<script type="text/javascript" src="{{ absolute_url('views/js/jquery-ui.min.js') }}"></script>
 <script type="text/javascript" src="{{ absolute_url('views/js/vidincloud.js') }}"></script>
 </body>
 </html>

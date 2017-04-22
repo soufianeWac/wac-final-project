@@ -31,9 +31,36 @@ $app->match('/usr{id}', function(Request $request, $id) use($app)
 	{
 		$actionUser = true;
 	}
-
+	$form = $app['form.factory']->createBuilder(SearchFormConstraint::class)->getForm();
+  $form->handleRequest($request);
+  if($form->isSubmitted())
+  {
+  	$dataForm = $form->getData();
+    if($form->isValid())
+    {
+    	$listUsers = searchUser($app, htmlentities($dataForm['profilsearch']));
+    	return $app['twig']->render('liste-utilisateur.twig', ['listUsers' => $listUsers]);
+    }
+  }
 	$category = getCategoryForVideos($app, $lastVideo['category_id']);
 	// render page profil with info user and info connected user if true
+
+	$callFuncFollowed = renderUserfollow($app, $id);
+
+	$followed = [];
+	$followed['str'] = "SUIVRE";
+	$followed['value'] = false;
+
+	if($callFuncFollowed[0]['user_id'] == $userSession['userInfo'] || $callFuncFollowed != null){
+		$followed['str'] = "NE PLUS SUIVRE";
+		$followed['value'] = true;
+	}
+
+	$listVideoUserFollowed = [];
+	for ($i=0; $i < count(renderVideoFollower($app, $id)) ; $i++) { 
+		$listVideoUserFollowed[] = renderVideoFollower($app, $id)[$i];
+	}
+
 	return $app['twig']->render('profil.twig', [
 		'userConnected' => $userSession,
 		'userPageProfil' => $userProfil,
@@ -43,7 +70,10 @@ $app->match('/usr{id}', function(Request $request, $id) use($app)
 		'category' => $category,
 		'actionUser' => $actionUser,
 		'videoCount' => renderNbrOfVideoInCategory($app),
-		'listOfRecentPost' => $listOfRecentPost
+		'listOfRecentPost' => $listOfRecentPost,
+		'followed' => $followed,
+		'listVideoUserFollowed' => $listVideoUserFollowed,
+		'form' => $form->createView()
 	]);
 });
 
@@ -110,8 +140,8 @@ $app->match('/delete_usr{id}', function(Request $request, $id) use($app)
 		deleteAccount($app, $id); //delete info user
 		deleteAllVideoUser($app, $id); //delete video user
 		deleteAllComOfUser($app, $id); //delete user-related comment
-		$app['session']->remove('user');//clear session
-		return $app->redirect('/accueil');//redirect to home
+		$app['session']->remove('user'); //clear session
+		return $app->redirect('/accueil'); //redirect to home
 	}
 	else{
 		return $app['twig']->render('404.twig');
