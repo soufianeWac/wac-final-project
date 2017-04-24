@@ -107,7 +107,7 @@ function formatDatePost($date)
     elseif(ltrim(datediff('n', date("j-m-Y H:i:s"), $date, false), '-') >= 60){
         $newDate = 'Posté il y a '.ltrim(datediff('h', date("j-m-Y H:i:s"), $date, false), '-').' h';
     }
-    elseif(ltrim(datediff('n', date("j-m-Y H:i:s"), $date, false), '-') == 0){
+    elseif(ltrim(datediff('n', date("j-m-Y H:i:s"), $date, false), '-') < 0){
         $newDate = 'Posté il y a moins d\'une min';
     }
     elseif(ltrim(datediff('n', date("j-m-Y H:i:s"), $date, false), '-') < 60){
@@ -150,7 +150,8 @@ function rmFolder($dir) {
     } 
 }
 
-function process($action){
+function process($action)
+{
     $res = [];
     if($action)
     {
@@ -159,4 +160,61 @@ function process($action){
         $res['request'] = 'notvalid';
     }
     return json_encode($res);
+}
+
+function sendMail($address, $token)
+{
+    $mail = $address; // Déclaration de l'adresse de destination.
+    if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $mail)) 
+    // On filtre les serveurs qui rencontrent des bogues.
+    {
+        $passage_ligne = "\r\n";
+    }
+    else
+    {
+        $passage_ligne = "\n";
+    }
+
+    //=====Déclaration des messages au format texte et au format HTML.
+
+    $message_txt = "Bonjour, merci de nous avoir rejoint. Pour finaliser votre inscription, vous devez inscrire le code qui suit dans le formulaire du site : ".$token;
+
+    //=====Création de la boundary
+
+    $boundary = "-----=".md5(rand());
+
+    //=====Définition du sujet.
+
+    $sujet = "Vidincloud - validation de votre compte";
+
+    //=====Création du header de l'e-mail.
+
+    $header = "From: \"WeaponsB\"<weaponsb@mail.fr>".$passage_ligne;
+
+    $header.= "Reply-to: \"WeaponsB\" <weaponsb@mail.fr>".$passage_ligne;
+
+    $header.= "MIME-Version: 1.0".$passage_ligne;
+
+    $header.= "Content-Type: multipart/alternative;".$passage_ligne." boundary=\"$boundary\"".$passage_ligne;
+
+    //=====Création du message.
+
+    $message = $passage_ligne."--".$boundary.$passage_ligne;
+
+    //=====Ajout du message au format texte.
+
+    $message.= "Content-Type: text/plain; charset=\"utf-8\"".$passage_ligne;
+
+    $message.= "Content-Transfer-Encoding: 8bit".$passage_ligne;
+
+    $message.= $passage_ligne.$message_txt.$passage_ligne;
+
+
+    $message.= $passage_ligne."--".$boundary."--".$passage_ligne;
+
+    $message.= $passage_ligne."--".$boundary."--".$passage_ligne;
+
+    //=====Envoi de l'e-mail.
+
+    mail($mail,$sujet,$message,$header);
 }

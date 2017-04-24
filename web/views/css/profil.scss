@@ -1,0 +1,225 @@
+.header-profil-page{
+	height: 400px;
+	overflow: hidden;
+	background-image: url('../img/bg-profil.jpg'); 
+	background-size: 100%;
+	background-position: center; 
+	background-repeat: no-repeat;
+	position: relative;
+	.avatar-header-profil{
+		width: 120px;
+		height: 120px;
+		overflow: hidden;
+		border-radius: 100%;
+		background: blue;
+		position: absolute;
+		bottom: 100px;
+		left: 45px;
+		img{
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			width: calc(100% + 120px);
+		} 
+	}
+	.block-infos-profil{
+		position: absolute;
+		bottom: 130px;
+		left: 190px;
+		h1{
+			color: #fff;
+		}
+		span{
+			color: #fff;
+			font-family: 'Work Sans';
+		}
+		.editprofil{
+			color: #fff;
+			font-size: 1.2rem;
+		}
+	}
+	form{
+		position: absolute;
+		right: 45px;
+		bottom: 20px;
+		input{
+			height: 25px;
+			border: 1px solid rgba(255, 255, 255, 0.5);
+			border-right: 0px;
+			background: rgba(255, 255, 255, 0.2);
+			color: #fff;
+			padding: 0px 10px;
+		}
+		button{
+			height: 25px;
+			padding: 0px 10px;
+			background: rgba(255, 255, 255, 0.2);
+			border: 1px solid rgba(255, 255, 255, 0.5);
+			border-left: 0px;
+			position: relative;
+			color: #fff;
+			right: 6px;
+		}
+	}
+	.info-user-header-profil{
+		display: inline;
+	}
+	.deconnexion-delete{
+		height: 35px;
+		width: 100%;
+		background-color: $bgColorFooter;
+		position: relative;
+		z-index: 1;
+		overflow: hidden;
+		a{
+			position: absolute;
+			right: 45px;
+			color: #fff;
+			text-transform: uppercase;
+			font-family: 'Work Sans';
+			padding: 5px 10px;
+			height: 100%;
+			font-weight: 600;
+			&:hover{
+				background: $colorGlobal;
+			}
+		}
+		button{
+			height: 100%;
+			width: 200px;
+			border: none;
+			padding: 0px 10px;
+			display: inline-block;
+			vertical-align: top;
+			position: relative;
+			text-transform: uppercase;
+			font-family: 'Work Sans';
+			font-weight: 600;
+			font-size: 1.2rem;
+			color: #fff;
+			background-color: #f05757;
+			&:hover{
+				background-color: #e12c2c;
+			}
+		}
+		.show-btn{
+			height: 100%;
+			width: 20px;
+			background-color: #e12c2c;
+			display: inline-block;
+			position: relative;
+			right: 5px;
+			cursor: pointer;
+		}
+		.toggle-btn{
+			left: -210px;
+		}
+	}
+	.toggle{
+		top: -35px;
+	}
+	.btn-followed{
+		border-radius: 25px;
+		width: 150px;
+		background: $colorGlobal;
+		border: 1px solid $colorGlobal;
+		color: #fff;
+		font-family: 'Work Sans';
+		font-weight: 600;
+		position: relative;
+		top: 20px;
+	}
+	.stat{
+		position: absolute;
+		bottom: 0px;
+		height: 55px;
+		overflow: hidden;
+		left: 190px;
+		.inline{
+			display: inline-block;
+			color: #fff;
+			border: 1px solid white;
+			height: 100%;
+			padding-left: 10px;
+			padding-right: 10px;
+			text-align: center;
+			background: rgba(255, 255, 255, 0.2);
+			span{
+				display: block;
+				text-transform: uppercase;
+				font-family: 'Work Sans';
+				font-weight: 500;
+			}
+			.nbr{
+				font-size: 2.2rem;
+				font-family: 'Open Sans Condensed';
+			}
+		}
+	}
+}
+
+.add-video-block{
+	text-align: center;
+	margin-top: 45px;
+	width: 100%;
+	.btn-add-video{
+		margin-top: 45px;
+		height: 100px;
+		background-color: #e7e7e7;
+		text-align: center;
+		position: relative;
+		i{
+			font-size: 5.5rem;
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			color: black;
+		}
+	}
+}
+
+.block-last-video{
+	margin-top: 65px;
+	padding-bottom: 65px;
+	h3{
+		margin-bottom: 20px;
+		position: relative;
+		left: 15px;	
+	}
+	video{
+		width: 100%;
+	}
+	.block-info-video{
+		height: 279px;
+		position: relative;
+		h4{
+			font-size: 3.3rem;
+		}
+		p{
+			font-family: 'Work Sans';
+		}
+		.info-bottom{
+			position: absolute;
+			bottom: 4px;
+			p{
+				margin-bottom: 0px;
+				font-weight: 500;
+			}
+			span{
+				background: black;
+				color: #fff;
+				font-weight: 700;
+				padding: 0px 10px;
+				font-size: 1.2rem;
+				text-transform: uppercase;
+			}
+		}
+	}
+}
+.recentVideo{
+	background: grey;
+}
+.container-last-video{
+	margin-bottom: 65px;
+}

@@ -32,7 +32,7 @@ $app->match('/inscription', function(Request $request) use($app){
 
     if($form->isValid()){
       //generate token for validation of user subscribe
-      // $sess = $app['session']->set('user', array('user_token' => $token);
+      //$sess = $app['session']->set('user', array('user_token' => $token);
       $token = random_bytes(4);
       $token = strtoupper(bin2hex($token));
       $avatar = 'views/img/avatar.png';
@@ -45,15 +45,45 @@ $app->match('/inscription', function(Request $request) use($app){
       userValidation($app, $token);
 
       //step3 - send mail with token
+      sendMail($dataForm['mail'], $token);
 
       //step4 - redirect to form validation subscribe
-      //$form = $app['form.factory']->createBuilder(FormConstraintInscription::class)->getForm();
-
-      //step5 - create session and redirect to profil page
-      $app['session']->set('user', array('userInfo' => $lastUserId));
-      return $app->redirect('/usr'.$lastUserId);
+      return $app->redirect('/validation'.$lastUserId);
     }
   }
   $formView = ['participFormView' => $form->createView()];
   return $app['twig']->render('inscription.twig', $formView);
+});
+
+$app->match('/validation{id}', function(Request $request, $id) use($app)
+{
+  $validation = userInfo($app, $id);
+  if($validation['valid'] != 0 || $validation == false)
+  {
+    return $app->redirect('/');
+  }
+  else
+  {
+    $form = $app['form.factory']->createBuilder(TokenFormConstraint::class)->getForm();
+    $form->handleRequest($request);
+    if($form->isSubmitted())
+    {
+      $dataForm = $form->getData();
+
+      if($form->isValid())
+      {
+        if($validation == true && $dataForm['token'] == $validation['token_validation'])
+        {
+          validUser($app, true, $dataForm['token']);
+          //step5 - create session and redirect to profil page
+          $app['session']->set('user', array('userInfo' => $id));
+          return $app->redirect('/usr'.$id);
+        }
+        else{
+          $form->get('token')->addError(new \Symfony\Component\Form\FormError('Ce code n\'est pas valide'));
+        }
+      }
+    }
+    return $app['twig']->render('token.twig', ['form' => $form->createView()]);
+  }
 });

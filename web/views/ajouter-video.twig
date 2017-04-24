@@ -1,4 +1,10 @@
-
+{% include 'partials/header.twig' %}
 {{ form_start(form) }}
-<input type="submit" name="">
-{{ form_end(form) }}
+	{{form_widget(form.name)}}
+	{{form_widget(form.description)}}
+	{{form_widget(form.videoFile)}}
+	{{form_widget(form.imageVideo)}}
+	{{form_widget(form.display)}}
+	<input type="submit" name="">
+	{{ form_end(form) }}
+{% include 'partials/footer.twig' %}

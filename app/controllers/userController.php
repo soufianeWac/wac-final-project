@@ -21,7 +21,6 @@ $app->match('/usr{id}', function(Request $request, $id) use($app)
 	$dateVideo = date('j-m-Y H:i:s', strtotime($lastVideo['created_at']));
 	$dateUser = strftime('%d %B %Y',  strtotime($userProfil['created_at']));
 
-
 	$t2 = date('Y-m-j H:i:s');
 	$t1 = date('Y-m-j H:i:s', strtotime($lastVideo['created_at']. "-3 week"));
 
@@ -51,15 +50,27 @@ $app->match('/usr{id}', function(Request $request, $id) use($app)
 	$followed['str'] = "SUIVRE";
 	$followed['value'] = false;
 
-	if($callFuncFollowed[0]['user_id'] == $userSession['userInfo'] || $callFuncFollowed != null){
+	$arraySearch = [];
+	$newArray = [];
+	for ($i=0; $i < count($callFuncFollowed); $i++) { 
+		$newArray[] = $callFuncFollowed[$i]['user_id'];
+	}
+
+	if(in_array($userSession['userInfo'], $newArray) == true){
 		$followed['str'] = "NE PLUS SUIVRE";
 		$followed['value'] = true;
 	}
 
 	$listVideoUserFollowed = [];
+	$infoVideoFollower = [];
+	$newListVideoUserFollowed = [];
+	$newTab = [];
 	for ($i=0; $i < count(renderVideoFollower($app, $id)) ; $i++) { 
 		$listVideoUserFollowed[] = renderVideoFollower($app, $id)[$i];
+		$newListVideoUserFollowed[] = selectInfosFollowed($app, $listVideoUserFollowed[$i]['followed_id']);
 	}
+
+	$infoVideoFollowed = array_unique($newListVideoUserFollowed, SORT_REGULAR);
 
 	return $app['twig']->render('profil.twig', [
 		'userConnected' => $userSession,
@@ -71,8 +82,8 @@ $app->match('/usr{id}', function(Request $request, $id) use($app)
 		'actionUser' => $actionUser,
 		'videoCount' => renderNbrOfVideoInCategory($app),
 		'listOfRecentPost' => $listOfRecentPost,
-		'followed' => $followed,
-		'listVideoUserFollowed' => $listVideoUserFollowed,
+		'listVideoUserFollowed' => $infoVideoFollowed,
+		'followed' => $followed,		
 		'form' => $form->createView()
 	]);
 });
@@ -95,15 +106,15 @@ $app->match('/usr{id}/edition', function(Request $request, $id) use($app){
     $dataForm = $form->getData();
 
     if ($form->isValid()) {
-    	$xlsDir = __DIR__.'/../../web/avatar/'.$userSession['userInfo'].'/';
-    	$files = scandir($xlsDir);
+    	$dir = __DIR__.'/../../web/avatar/'.$userSession['userInfo'].'/';
+    	$files = scandir($dir);
 	    $links = [];
 
 	    foreach($files as $file)
 	    {
-	      if(is_file($xlsDir.$file))
+	      if(is_file($dir.$file))
 	      {
-	        unlink($xlsDir.$file);
+	        unlink($dir.$file);
 	      }
 	    }
     	if($dataForm['avatar'] != null)

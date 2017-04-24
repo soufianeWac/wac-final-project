@@ -1,4 +1,21 @@
+{% include 'partials/header.twig' %}
 
 {{ form_start(form) }}
-<input type="submit" name="">
+	<div class="title-page-connexion">
+	<h1>Connectez-vous</h1>
+	<span>Bonjour, connectez vous et profiter sur vidincloud</span>
+	</div>
+	<div class="block-connexion">
+		<div class="form-group">
+			{{form_widget(form.login,{'attr':{'class':'form-control', 'placeholder': 'Adresse e-mail'}})}}
+			<div class="error">{{ form_errors(form.login) }}</div>
+		</div>
+		<div class="form-group">
+			{{form_widget(form.password,{'attr':{'class':'form-control', 'placeholder': 'Mot de passe'}})}}
+			<div class="error">{{ form_errors(form.password) }}</div>
+		</div>
+		<button type="submit" name="" class="btn-valid-form">Valider</button>
+	</div>
 {{ form_end(form) }}
+
+{% include 'partials/pre-footer.twig' %}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vidincloud</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="{{ absolute_url('views/css/bootstrap.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ absolute_url('views/css/mediaelementplayer.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ absolute_url('views/css/styles.css') }}">
+</head>
+<body>
+<header>
+	<img src="{{ absolute_url('views/img/logo2_white.png') }}">
+	<form>
+		<input type="text" name="search-video">
+		<button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+	</form>
+	{% if userPageProfil is defined %}
+		{% if userConnected == true and userPageProfil != null %}
+			<div class="avatar">
+				<img {% if userPageProfil.avatar != 'none'%} src="{{ absolute_url('avatar/') }}{{userPageProfil.id}}/{{ userPageProfil.avatar }}" {% else %} src="{{ absolute_url('views/img/avatar.png') }}" {% endif %}/>
+			</div>
+		{% endif %}
+	{% endif %}
+	{% if userConnected is defined %}
+		{% if userConnected == false %}
+			<a href="/connexion" class="btn-connexion">Se connecter</a>
+		{% endif %}
+	{% endif %}
+</header>

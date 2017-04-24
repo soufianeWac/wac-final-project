@@ -115,7 +115,9 @@ class FormConstraintInscription extends AbstractType
 		  array(
 		    'required' => false,
 		    'constraints' => array(
-		      new Constraints\NotBlank(array('message' => 'Veuillez renseigner votre mot de passe'))),
+		      new Constraints\NotBlank(array('message' => 'Veuillez renseigner votre mot de passe')),
+		      new Constraints\Length(array('min' => 5, 'minMessage' => 'Votre mot de passe doit contenir au moins 5 caractères'))
+		      ),
 		  	)
 		)
 		->add(
@@ -137,6 +139,25 @@ class FormConstraintInscription extends AbstractType
 	      )
 	    );
     }
+}
+/*---------------------------------------------------------------------*/
+/*                   		//CONSTRUCT TOKEN VALIDATION//                 */
+/*---------------------------------------------------------------------*/
+class TokenFormConstraint extends AbstractType
+{
+  public function buildForm(FormBuilderInterface $builder, array $options)
+  {
+    return $builder->add(
+		  'token',
+		  TextType::class,
+		  [
+		    'required' => false,
+		    'constraints' => [
+		      new Constraints\NotBlank(['message' => 'Veuillez saisir votre code de validation']),
+		    ]
+		  ]
+		);
+  }
 }
 /*---------------------------------------------------------------------*/
 /*                   		//CONSTRUCT CONNEXION FORM//                	 */

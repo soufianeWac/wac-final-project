@@ -1,4 +1,8 @@
 $(document).ready(function(){
+  $('.menu-mobile i').click(function(){
+    $('.sidebar-mobile').toggleClass('no-visible');
+  });
+
   $('.valid-com').click(function(e){
       e.preventDefault();
       var serialize = $('#form-commentaire').serializeArray();
@@ -102,6 +106,16 @@ $(document).ready(function(){
       });
     });
 
+    $('.avatar').click(function()
+    {
+      $('.deconnexion-delete').toggleClass('toggle');
+    });
+
+    $('.show-btn').click(function()
+    {
+      $(this).toggleClass('toggle-btn');
+      $('.delete-account').toggleClass('toggle-btn');
+    });
 });
 
 function deleteCom(idCom)

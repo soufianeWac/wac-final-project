@@ -1,0 +1,484 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300");
+@import url("https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700,800,900");
+@import url("../font_2/css/font-awesome.css");
+* {
+  margin: 0px;
+  padding: 0px; }
+
+html,
+body {
+  background: #000;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden; }
+
+a {
+  text-decoration: none; }
+  a:hover {
+    text-decoration: none; }
+
+h1, h2, h3, h4, h5 {
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Open Sans Condensed'; }
+
+li {
+  list-style: none; }
+
+button,
+input {
+  border-radius: 0px; }
+
+header {
+  width: 100%;
+  height: 65px;
+  padding-left: 45px;
+  padding-right: 45px;
+  background: black;
+  position: relative; }
+  header img {
+    width: 120px;
+    height: 35px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); }
+  header form {
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); }
+    header form input {
+      width: 325px;
+      border: 1px solid #72BAED;
+      background: transparent;
+      height: 30px;
+      color: #5f5f63;
+      padding: 0px 10px; }
+      header form input:focus {
+        color: #fff;
+        background: #343435; }
+    header form button {
+      position: relative;
+      right: 4px;
+      height: 30px;
+      padding: 0px 10px;
+      background: #72BAED;
+      border: 1px solid #72BAED;
+      color: #fff; }
+  header .avatar {
+    position: absolute;
+    right: 35px;
+    height: 35px;
+    width: 35px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 100%;
+    overflow: hidden;
+    background-color: #72BAED;
+    cursor: pointer; }
+    header .avatar img {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(100% + 35px); }
+
+.error {
+  font-family: 'Work Sans';
+  font-weight: 600;
+  color: #d22f2f; }
+
+.form-control {
+  border-radius: 0px;
+  border-color: #72BAED; }
+
+.btn-valid-form {
+  font-family: 'Work Sans';
+  font-weight: 800;
+  text-transform: uppercase;
+  transition: 0.2s;
+  border: 1px solid black;
+  transition: 0.2s;
+  padding: 5px 15px;
+  background: transparent; }
+  .btn-valid-form:hover {
+    background: #72BAED;
+    border-color: #72BAED;
+    color: #fff; }
+
+/*page connexion style*/
+.title-page-connexion {
+  text-align: center;
+  margin-top: 45px; }
+
+.block-connexion {
+  width: 300px;
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%, -50%);
+  text-align: center; }
+  .block-connexion .error {
+    text-align: left;
+    margin-top: 10px; }
+
+.pre-footer {
+  width: 100%;
+  height: 25px;
+  background-color: #343435;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0px; }
+  .pre-footer ul {
+    font-size: 1.1rem;
+    position: relative;
+    height: 100%;
+    padding-top: 5px;
+    text-align: center; }
+    .pre-footer ul a {
+      font-family: 'Work Sans', sans-serif;
+      font-weight: 300;
+      color: #838386;
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 10px;
+      padding-bottom: 10px; }
+      .pre-footer ul a:hover {
+        color: #fff;
+        background-color: #72BAED; }
+      .pre-footer ul a li {
+        display: inline-block;
+        text-transform: uppercase; }
+
+.btn-connexion {
+  position: absolute;
+  right: 45px;
+  color: white;
+  text-transform: uppercase;
+  background: #72BAED;
+  padding: 5px 10px;
+  font-size: 1.3rem;
+  font-family: 'Work Sans';
+  font-weight: 600;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%); }
+
+body {
+  background: white; }
+
+.block-info {
+  display: block;
+  z-index: 0;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  /*.block-back-connexion{
+  	position: absolute;
+  	top: 50%;
+  	transform: translateY(-50%);
+  	border: 1px solid $colorGlobal;
+  	padding: 10px 25px;
+  	background-color: $colorGlobal;
+  	color: #fff;
+  	cursor: pointer;
+  	h1{
+  		font-family: 'Work Sans';
+  		font-size: 2rem;
+  		font-weight: 800;
+  	}
+  }*/ }
+
+.block-form {
+  width: 500px;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+  background: white;
+  margin-top: 45px;
+  margin-bottom: 45px; }
+  .block-form .title-form h2 {
+    font-size: 4.5rem;
+    text-align: center;
+    margin-bottom: 45px; }
+  .block-form .form-subscribe label {
+    font-family: 'Work Sans', 'sans-serif';
+    font-weight: 500; }
+  .block-form .form-subscribe .form-control {
+    margin-bottom: 15px; }
+  .block-form .form-subscribe #form_constraint_inscription_birthdate_day,
+  .block-form .form-subscribe #form_constraint_inscription_birthdate_month,
+  .block-form .form-subscribe #form_constraint_inscription_birthdate_year {
+    margin-bottom: 0px; }
+  .block-form .form-subscribe .title-id {
+    margin-top: 10px;
+    margin-bottom: 10px; }
+  .block-form .form-subscribe .valid-subscribe-form {
+    background: transparent;
+    border: 1px solid black;
+    padding: 5px 15px;
+    position: relative;
+    left: 15px;
+    transition: 0.2s; }
+    .block-form .form-subscribe .valid-subscribe-form:hover {
+      background-color: #72BAED;
+      border-color: #72BAED; }
+  .block-form .form-subscribe .checkbox-term {
+    margin-left: 15px; }
+    .block-form .form-subscribe .checkbox-term input {
+      display: inline; }
+    .block-form .form-subscribe .checkbox-term label {
+      display: inline; }
+  .block-form .form-subscribe .error-password,
+  .block-form .form-subscribe .error-birthdate {
+    margin-left: 15px; }
+  .block-form .form-subscribe .error-condition {
+    margin-top: 10px; }
+  .block-form .form-subscribe #form_constraint_inscription_civility label:last-child,
+  .block-form .form-subscribe #form_constraint_inscription_civility #form_constraint_inscription_civility_1 {
+    position: relative;
+    left: 10px; }
+
+footer {
+  width: 100%;
+  height: 25px;
+  background-color: #343435;
+  overflow: hidden;
+  bottom: 0px; }
+  footer ul {
+    font-size: 1.1rem;
+    position: relative;
+    height: 100%;
+    padding-top: 5px;
+    text-align: center; }
+    footer ul a {
+      font-family: 'Work Sans', sans-serif;
+      font-weight: 300;
+      color: #838386;
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 10px;
+      padding-bottom: 10px; }
+      footer ul a:hover {
+        color: #fff;
+        background-color: #72BAED; }
+      footer ul a li {
+        display: inline-block;
+        text-transform: uppercase; }
+
+.title-token-page {
+  text-align: center;
+  margin-top: 45px; }
+  .title-token-page span {
+    position: relative;
+    top: 10px; }
+
+.center-block-form {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  text-align: center; }
+  .center-block-form .error {
+    text-align: left;
+    margin-top: 10px; }
+  .center-block-form button {
+    background: transparent;
+    padding: 5px 10px;
+    border: 1px solid black; }
+
+.header-profil-page {
+  height: 400px;
+  overflow: hidden;
+  background-image: url("../img/bg-profil.jpg");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative; }
+  .header-profil-page .avatar-header-profil {
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+    border-radius: 100%;
+    background: blue;
+    position: absolute;
+    bottom: 100px;
+    left: 45px; }
+    .header-profil-page .avatar-header-profil img {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(100% + 120px); }
+  .header-profil-page .block-infos-profil {
+    position: absolute;
+    bottom: 130px;
+    left: 190px; }
+    .header-profil-page .block-infos-profil h1 {
+      color: #fff; }
+    .header-profil-page .block-infos-profil span {
+      color: #fff;
+      font-family: 'Work Sans'; }
+    .header-profil-page .block-infos-profil .editprofil {
+      color: #fff;
+      font-size: 1.2rem; }
+  .header-profil-page form {
+    position: absolute;
+    right: 45px;
+    bottom: 20px; }
+    .header-profil-page form input {
+      height: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-right: 0px;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 0px 10px; }
+    .header-profil-page form button {
+      height: 25px;
+      padding: 0px 10px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-left: 0px;
+      position: relative;
+      color: #fff;
+      right: 6px; }
+  .header-profil-page .info-user-header-profil {
+    display: inline; }
+  .header-profil-page .deconnexion-delete {
+    height: 35px;
+    width: 100%;
+    background-color: #343435;
+    position: relative;
+    z-index: 1;
+    overflow: hidden; }
+    .header-profil-page .deconnexion-delete a {
+      position: absolute;
+      right: 45px;
+      color: #fff;
+      text-transform: uppercase;
+      font-family: 'Work Sans';
+      padding: 5px 10px;
+      height: 100%;
+      font-weight: 600; }
+      .header-profil-page .deconnexion-delete a:hover {
+        background: #72BAED; }
+    .header-profil-page .deconnexion-delete button {
+      height: 100%;
+      width: 200px;
+      border: none;
+      padding: 0px 10px;
+      display: inline-block;
+      vertical-align: top;
+      position: relative;
+      text-transform: uppercase;
+      font-family: 'Work Sans';
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: #fff;
+      background-color: #f05757; }
+      .header-profil-page .deconnexion-delete button:hover {
+        background-color: #e12c2c; }
+    .header-profil-page .deconnexion-delete .show-btn {
+      height: 100%;
+      width: 20px;
+      background-color: #e12c2c;
+      display: inline-block;
+      position: relative;
+      right: 5px;
+      cursor: pointer; }
+    .header-profil-page .deconnexion-delete .toggle-btn {
+      left: -210px; }
+  .header-profil-page .toggle {
+    top: -35px; }
+  .header-profil-page .btn-followed {
+    border-radius: 25px;
+    width: 150px;
+    background: #72BAED;
+    border: 1px solid #72BAED;
+    color: #fff;
+    font-family: 'Work Sans';
+    font-weight: 600;
+    position: relative;
+    top: 20px; }
+  .header-profil-page .stat {
+    position: absolute;
+    bottom: 0px;
+    height: 55px;
+    overflow: hidden;
+    left: 190px; }
+    .header-profil-page .stat .inline {
+      display: inline-block;
+      color: #fff;
+      border: 1px solid white;
+      height: 100%;
+      padding-left: 10px;
+      padding-right: 10px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.2); }
+      .header-profil-page .stat .inline span {
+        display: block;
+        text-transform: uppercase;
+        font-family: 'Work Sans';
+        font-weight: 500; }
+      .header-profil-page .stat .inline .nbr {
+        font-size: 2.2rem;
+        font-family: 'Open Sans Condensed'; }
+
+.add-video-block {
+  text-align: center;
+  margin-top: 45px;
+  width: 100%; }
+  .add-video-block .btn-add-video {
+    margin-top: 45px;
+    height: 100px;
+    background-color: #e7e7e7;
+    text-align: center;
+    position: relative; }
+    .add-video-block .btn-add-video i {
+      font-size: 5.5rem;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: black; }
+
+.block-last-video {
+  margin-top: 65px;
+  padding-bottom: 65px; }
+  .block-last-video h3 {
+    margin-bottom: 20px;
+    position: relative;
+    left: 15px; }
+  .block-last-video video {
+    width: 100%; }
+  .block-last-video .block-info-video {
+    height: 279px;
+    position: relative; }
+    .block-last-video .block-info-video h4 {
+      font-size: 3.3rem; }
+    .block-last-video .block-info-video p {
+      font-family: 'Work Sans'; }
+    .block-last-video .block-info-video .info-bottom {
+      position: absolute;
+      bottom: 4px; }
+      .block-last-video .block-info-video .info-bottom p {
+        margin-bottom: 0px;
+        font-weight: 500; }
+      .block-last-video .block-info-video .info-bottom span {
+        background: black;
+        color: #fff;
+        font-weight: 700;
+        padding: 0px 10px;
+        font-size: 1.2rem;
+        text-transform: uppercase; }
+
+.recentVideo {
+  background: grey; }
+
+.container-last-video {
+  margin-bottom: 65px; }
+
+/*# sourceMappingURL=styles.css.map */

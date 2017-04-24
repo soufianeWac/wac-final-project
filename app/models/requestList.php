@@ -13,10 +13,24 @@ function userValidation($app, $token)
 /*---------------------------------------------------------------------*/
 /*             					//FUNCTION VALID INSCRIPTION//               	 */
 /*---------------------------------------------------------------------*/
-function updateTokenValidation($app, $id, $token)
+// function updateTokenValidation($app, $id, $valid, $token)
+// {
+// 	$sqlRequest = 'UPDATE `tokens_account` SET `user_id` = ?, `valid` = ? WHERE `tokename` = ?'; 
+// 	$resultReq = $app['db']->executeUpdate($sqlRequest, [$id, $valid, $token]);
+// 	return $resultReq;
+// }
+
+function validUser($app, $valid, $token)
 {
-	$sqlRequest = 'UPDATE `token_validation` SET `user_id` = ? WHERE `tokename` = ?'; 
-	$resultReq = $app['db']->executeUpdate($sqlRequest, [$id, $token]);
+	$sqlRequest = 'UPDATE `users` SET `valid` = ? WHERE `token_validation` = ?'; 
+	$resultReq = $app['db']->executeUpdate($sqlRequest, [$valid, $token]);
+	return $resultReq;
+}
+
+function validation($app, $id)
+{
+	$sqlRequest = 'SELECT * FROM `users` INNER JOIN `tokens_account` ON users.token_validation = tokens_account.tokename WHERE users.id = ?';
+	$resultReq = $app['db']->fetchAssoc($sqlRequest, [$id]);
 	return $resultReq;
 }
 /*---------------------------------------------------------------------*/
@@ -282,8 +296,15 @@ function unfollow($app, $userId, $followedId)
 
 function renderVideoFollower($app, $userId)
 {
-	$sqlRequest = 'SELECT `video_home`.*,`followers`.* FROM `video_home` INNER JOIN `followers` ON video_home.user_id = followers.followed_id WHERE followers.user_id = ?';
+	$sqlRequest = 'SELECT `users`.*, `video_home`.*,`followers`.* FROM `video_home` INNER JOIN `followers` ON video_home.user_id = followers.followed_id INNER JOIN `users` ON users.id = followers.followed_id  WHERE followers.user_id = ? ORDER BY video_home.created_at DESC';
 	$resultReq = $app['db']->fetchAll($sqlRequest, [$userId]);
+	return $resultReq;
+}
+
+function selectInfosFollowed($app, $id)
+{
+	$sqlRequest = 'SELECT `users`.*, `video_home`.* FROM `video_home` INNER JOIN `users` ON users.id = video_home.user_id WHERE `user_id` = ? ORDER BY video_home.created_at DESC LIMIT 1';
+	$resultReq = $app['db']->fetchAll($sqlRequest, [$id]);
 	return $resultReq;
 }
 

@@ -32,8 +32,15 @@ $app->match('/connexion', function(Request $request) use ($app)
     }
     if($form->isValid())
     {
-      $app['session']->set('user', array('userInfo' => $user['id']));
-      return $app->redirect('/usr'.$user['id']);
+      if($user['valid'] == true)
+      {
+        $app['session']->set('user', array('userInfo' => $user['id']));
+        return $app->redirect('/usr'.$user['id']);
+      }
+      else
+      {
+        $form->get('password')->addError(new \Symfony\Component\Form\FormError('Vous devez valider votre compte'));
+      }
     }
   }
   return $app['twig']->render('/connexion.twig', array('form' => $form->createView()));

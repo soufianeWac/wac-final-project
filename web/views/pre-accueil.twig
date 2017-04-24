@@ -1,1 +1,27 @@
-pre accueil
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Vidincloud</title>
+		<link rel="stylesheet" type="text/css" href="{{ absolute_url('views/css/bootstrap.min.css') }}">
+		<link rel="stylesheet" type="text/css" href="{{ absolute_url('views/css/styles-prehome.css') }}">
+	</head>
+	<body>
+		<header>
+			<img src="{{ absolute_url('views/img/logo2_white.png') }}">
+		</header>
+		<div class="title-prehome">
+			<h1>Vidincloud c'est<br> la continuité et le partage.</h1>
+			<h1>Vidincloud un cloud et bien plus</h1>
+			<h1>Vidincloud un cloud et bien plus</h1>
+			<h1>Vidincloud un cloud et bien plus</h1>
+		</div>
+		<div class="search-container">
+				<form>
+					<input type="text" name="search-video" class="search-input" placeholder="Recherche rapide">
+					<button type="submit" name="submitForm"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;</button><br>
+				</form>
+		</div>
+		<div class="legal">
+			<p>Pour en savoir plus&nbsp;<a href="/a-propos">[ cliquez ici ]</a></p>
+		</div>
+{% include 'partials/pre-footer.twig' %}

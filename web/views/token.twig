@@ -1,0 +1,15 @@
+{% include 'partials/header.twig' %}
+<div class="title-token-page">
+	<h1>Valider votre compte</h1>
+	<span>Pour valider votre compte vous devez inscrire ci-dessous<br> votre code de validation 
+	que vous avez reçu par e-mail<br> à l'adresse que vous avez renseigner lors de votre inscription.</span>
+</div>
+<div class="center-block-form">
+	{{form_start(form)}}
+		{{ form_widget(form.token,{'attr':{'class':'form-control', 'placeholder': "Code de validation"}}) }}
+	<div class="error">{{form_errors(form.token)}}</div>
+	<button type="submit" name="" class="btn-valid-form">Valider</button>
+	{{form_end(form)}}
+</div>
+
+{% include 'partials/footer.twig' %}

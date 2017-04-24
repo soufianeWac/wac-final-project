@@ -1,0 +1,26 @@
+.title-token-page{
+	text-align: center;
+	margin-top: 45px;
+	span{
+		position: relative;
+		top: 10px;
+	}
+}
+
+.center-block-form{
+	position: absolute;
+	top: 60%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 300px;
+	text-align: center;
+	.error{
+		text-align: left;
+		margin-top: 10px;
+	}
+	button{
+		background: transparent;
+		padding: 5px 10px;
+		border: 1px solid black;
+	}
+}

@@ -1,0 +1,133 @@
+body{
+	background: white;
+}
+
+.block-info{
+	display: block;
+
+	z-index: 0;
+	height: 100%;
+	width: 100%;
+
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	/*.block-back-connexion{
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		border: 1px solid $colorGlobal;
+		padding: 10px 25px;
+		background-color: $colorGlobal;
+		color: #fff;
+		cursor: pointer;
+		h1{
+			font-family: 'Work Sans';
+			font-size: 2rem;
+			font-weight: 800;
+		}
+	}*/
+}
+
+.block-form{
+	width: 500px;
+	height: 100%;
+	position: relative;
+	z-index: 2;
+	background: white;
+	margin-top: 45px;
+	margin-bottom: 45px;
+
+	.title-form{
+		h2{
+			font-size: 4.5rem;
+			text-align: center;
+			margin-bottom: 45px;
+		}
+	}
+	.form-subscribe{
+		label{
+			font-family: 'Work Sans', 'sans-serif';
+			font-weight: 500;
+		}
+		.form-control{
+			margin-bottom: 15px;
+		}
+		#form_constraint_inscription_birthdate_day,
+		#form_constraint_inscription_birthdate_month,
+		#form_constraint_inscription_birthdate_year{
+			margin-bottom: 0px;
+		}
+		.title-id{
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+		.valid-subscribe-form{
+			background: transparent;
+			border: 1px solid black;
+			padding: 5px 15px;
+			position: relative;
+			left: 15px;
+			transition: 0.2s;
+			&:hover{
+				background-color: $colorGlobal;
+				border-color: $colorGlobal;
+			}
+		}
+		.checkbox-term{
+			margin-left: 15px;
+			input{
+				display: inline;
+			}
+			label{
+				display: inline;
+			}
+		}
+		
+		.error-password, 
+		.error-birthdate{
+			margin-left: 15px;
+		}
+		.error-condition{
+			margin-top: 10px;
+		}
+		#form_constraint_inscription_civility{
+			label:last-child,
+			#form_constraint_inscription_civility_1{
+				position: relative;
+				left: 10px;
+			}
+		}
+	}
+}
+footer{
+	width: 100%;
+	height: 25px;
+	background-color: $bgColorFooter;
+	overflow: hidden;
+	bottom: 0px;
+	ul{
+		font-size: 1.1rem;
+		position: relative;
+		height: 100%;
+		padding-top: 5px;
+		text-align: center;
+		a{
+			font-family: 'Work Sans', sans-serif;
+			font-weight: 300;
+			color: #838386;
+			padding-left: 10px;
+			padding-right: 10px;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			&:hover{ 
+				color: $colorLinkInHover;
+				background-color: $colorGlobal;
+			}
+			li{
+				display: inline-block;
+				text-transform: uppercase;
+			}
+		}
+	}
+}

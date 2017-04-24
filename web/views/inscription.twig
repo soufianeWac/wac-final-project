@@ -1,3 +1,112 @@
-{{ form_start(participFormView) }}
-<input type="submit" name="">
-{{ form_end(participFormView) }}
+{% include 'partials/header.twig' %}
+<div class="container global-page">
+	<div class="row">
+		<div class="block-info">
+			<a href="login">
+				<div class="block-back-connexion">
+				</div>
+			</a>
+		</div>
+
+		<div class="block-form col-md-12 col-md-offset-3">
+			<div class="title-form">
+				<h2>Formulaire d'inscription</h2>
+			</div>
+			{{ form_start(participFormView, {'attr':{'novalidate': 'novalidate','class':'form-subscribe'}}) }}
+			<div class="form-group">
+				<div class="col-sm-12">
+					<label>Civilité<sup>*</sup></label>
+				</div>
+				<div class="col-sm-12">
+						{{ form_widget(participFormView.civility) }}
+						<div class="error">{{ form_errors(participFormView.civility) }}</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-6">
+					{{ form_widget(participFormView.lastname,{'attr':{'class':'form-control', 'placeholder': 'Nom de famille'}}) }}
+					<div class="error">{{ form_errors(participFormView.lastname) }}</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-6">
+						{{ form_widget(participFormView.firstname,{'attr':{'class':'form-control', 'placeholder': 'Prénom'}}) }}
+						<div class="error">{{ form_errors(participFormView.firstname) }}</div>
+				</div>
+			</div>
+			
+
+			<div class="form-group">
+				<div class="col-sm-12 block-input">
+					{{ form_widget(participFormView.mail,{'attr':{'class':'form-control', 'placeholder': 'Adresse e-mail'}}) }}
+					<div class="error">{{ form_errors(participFormView.mail) }}</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-4 col-xs-4 block-input block-input-year">
+					{{ form_widget(participFormView.birthdate.day,{'attr':{'class':'form-control', 'placeholder': 'JJ', 'maxLength': '2'}}) }}
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 col-xs-4 block-input block-input-year">
+					{{ form_widget(participFormView.birthdate.month,{'attr':{'class':'form-control', 'placeholder': 'MM', 'maxLength': '2'}}) }}
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-4 col-xs-4 block-input block-input-year">
+					{{ form_widget(participFormView.birthdate.year,{'attr':{'class':'form-control', 'placeholder': 'AAAA', 'maxLength': '4'}}) }}
+				</div>
+			</div>
+				<div class="error error-birthdate">{{ form_errors(participFormView.birthdate) }}</div>
+
+
+
+			<div class="col-sm-12 title-id">
+				<h4>Vos identifiants</h4>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-12 block-input">
+					{{ form_widget(participFormView.username,{'attr':{'class':'form-control', 'placeholder': "Nom d'utilisateur"}}) }}
+					<div class="error">{{ form_errors(participFormView.username) }}</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-6 block-input">
+					{{ form_widget(participFormView.password,{'attr':{'class':'form-control', 'placeholder': "Mot de passe"}}) }}
+				</div>
+				<div class="col-sm-6 block-input">
+					{{ form_widget(participFormView.confirm_password,{'attr':{'class':'form-control', 'placeholder': "Confirmer votre mot de passe"}}) }}
+				</div>
+				<div class="error error-password">{{ form_errors(participFormView.confirm_password) }}</div>
+				<div class="error error-password">{{ form_errors(participFormView.password) }}</div>
+			</div>
+
+			<div class="checkbox-term">
+				<br>
+					{{ form_widget(participFormView.checkTerms) }}
+					<label for="form_constraint_inscription_checkTerms">					
+					<span>En cochant cette case vous acceptez être responsable de ce que vous postez ainsi que de la provenance de vos fichiers.<br>
+					Vidincloud se désangage de toute fraude commis dans le site.</span>
+					</label>
+					<div class="error error-condition">{{ form_errors(participFormView.checkTerms) }}</div>
+			</div>
+
+			<button type="submit" name="submit" class="btn-valid-form valid-subscribe-form">Valider<button>
+			{{ form_end(participFormView) }}
+		</div>
+	</div>
+</div>
+<footer>
+			<ul>
+				<a href=""><li>A propos</li></a>
+				<a href="/connexion"><li>Se connecter</li></a>
+				<a href="/inscription"><li>Créer un compte</li></a>
+			</ul>
+		</footer>
+	</body>
+</html>
