@@ -127,7 +127,7 @@ function renderNbrOfVideoInCategory($app)
         'Politique' => countVideoCategory($app, 3),
         'Culture' => countVideoCategory($app, 4),
         'Cinema' => countVideoCategory($app, 5),
-        'Jeux&tech' => countVideoCategory($app, 6),
+        'JeuxAndtech' => countVideoCategory($app, 6),
         'Sport' => countVideoCategory($app, 7),
         'Divers' => countVideoCategory($app, 8)
     ];

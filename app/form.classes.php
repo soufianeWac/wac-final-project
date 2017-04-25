@@ -190,7 +190,7 @@ class ConnexionFormConstraint extends AbstractType
   }
 }
 /*---------------------------------------------------------------------*/
-/*                   		//CONSTRUCT CONNEXION FORM//                	 */
+/*                   		//CONSTRUCT ADD VIDEO FORM//                	 */
 /*---------------------------------------------------------------------*/
 class VideoFormConstraint extends AbstractType
 {
@@ -353,6 +353,25 @@ class SearchFormConstraint extends AbstractType
 				'required' => false,
 				'constraints' => [
 					new Constraints\NotBlank(['message' => 'Veuillez saisir un nom d\'utilisateur']),
+				]
+			]
+		);
+	}
+}
+/*---------------------------------------------------------------------*/
+/*                   //CONSTRUCT SEARCH VIDEO FORM//                	 */
+/*---------------------------------------------------------------------*/
+class SearchVideoFormConstraint extends AbstractType
+{
+  public function buildForm(FormBuilderInterface $builder, array $options)
+  {
+		return $builder->add(
+			'videosearch',
+			TextType::class,
+			[
+				'required' => false,
+				'constraints' => [
+					new Constraints\NotBlank(['message' => 'Ce champs ne doit pas être vide']),
 				]
 			]
 		);

@@ -11,22 +11,17 @@ function userValidation($app, $token)
 	return $resultReq;
 }
 /*---------------------------------------------------------------------*/
-/*             					//FUNCTION VALID INSCRIPTION//               	 */
+/*             						//FUNCTION VALID ACCOUNT//               		 */
 /*---------------------------------------------------------------------*/
-// function updateTokenValidation($app, $id, $valid, $token)
-// {
-// 	$sqlRequest = 'UPDATE `tokens_account` SET `user_id` = ?, `valid` = ? WHERE `tokename` = ?'; 
-// 	$resultReq = $app['db']->executeUpdate($sqlRequest, [$id, $valid, $token]);
-// 	return $resultReq;
-// }
-
 function validUser($app, $valid, $token)
 {
 	$sqlRequest = 'UPDATE `users` SET `valid` = ? WHERE `token_validation` = ?'; 
 	$resultReq = $app['db']->executeUpdate($sqlRequest, [$valid, $token]);
 	return $resultReq;
 }
-
+/*---------------------------------------------------------------------*/
+/*             							//FUNCTION VERIF TOKEN//               		 */
+/*---------------------------------------------------------------------*/
 function validation($app, $id)
 {
 	$sqlRequest = 'SELECT * FROM `users` INNER JOIN `tokens_account` ON users.token_validation = tokens_account.tokename WHERE users.id = ?';
@@ -70,7 +65,7 @@ function videoSubscribe($app, $dataForm, $id)
 	return $resultReq;
 }
 /*---------------------------------------------------------------------*/
-/*             						//FUNCTION GET CATEGORY//               		 */
+/*             				//FUNCTION GET ALL CATEGORY//               		 */
 /*---------------------------------------------------------------------*/
 function getCategory($app, $name){
 	$getCategoryName = 'SELECT * FROM `category_video` WHERE `name` = ?';
@@ -78,7 +73,7 @@ function getCategory($app, $name){
 	return $resultCategory;
 }
 /*---------------------------------------------------------------------*/
-/*             						//FUNCTION GET CATEGORY//               		 */
+/*             		//FUNCTION GET CATEGORY FOR VIDEO//               	 */
 /*---------------------------------------------------------------------*/
 function getCategoryForVideos($app, $id){
 	$getCategoryName = 'SELECT `category_video`.* FROM `category_video` INNER JOIN `video_home` ON category_video.id = video_home.id WHERE video_home.id = ?';
@@ -231,6 +226,15 @@ function countCom($app, $id)
 	return $resultReq;
 }
 /*---------------------------------------------------------------------*/
+/*             					//FUNCTION COUNT VIDEO USER//               	 */
+/*---------------------------------------------------------------------*/
+function countVideo($app, $id)
+{
+	$sqlRequest = 'SELECT COUNT(*) AS "count" FROM `video_home` WHERE user_id = ?';
+	$resultReq = $app['db']->fetchAssoc($sqlRequest, [$id]);
+	return $resultReq;
+}
+/*---------------------------------------------------------------------*/
 /*             		//FUNCTION LIST RECENT VIDEO USER//               	 */
 /*---------------------------------------------------------------------*/
 function listRecentVideoUser($app, $id, $lastDate, $dateNow)
@@ -240,11 +244,20 @@ function listRecentVideoUser($app, $id, $lastDate, $dateNow)
 	return $resultReq;
 }
 /*---------------------------------------------------------------------*/
-/*             		//FUNCTION LIST RECENT VIDEO USER//               	 */
+/*             							//FUNCTION SEARCH USER//               	   */
 /*---------------------------------------------------------------------*/
 function searchUser($app, $data)
 {
 	$sqlRequest = 'SELECT * FROM `users` WHERE `username` LIKE "%'.$data.'%" ';
+	$resultReq = $app['db']->fetchAll($sqlRequest, [$data]);
+	return $resultReq;
+}
+/*---------------------------------------------------------------------*/
+/*             							//FUNCTION SEARCH USER//               	   */
+/*---------------------------------------------------------------------*/
+function searchVideo($app, $data)
+{
+	$sqlRequest = 'SELECT * FROM `video_home` WHERE `state` != "private" AND `name` LIKE "%'.$data.'%" ';
 	$resultReq = $app['db']->fetchAll($sqlRequest, [$data]);
 	return $resultReq;
 }
@@ -311,6 +324,20 @@ function selectInfosFollowed($app, $id)
 function renderUserfollow($app, $profilId)
 {
 	$sqlRequest = 'SELECT `users`.*, `followers`.* FROM `users` INNER JOIN `followers` ON users.id = followers.user_id WHERE followers.followed_id = ?';
+	$resultReq = $app['db']->fetchAll($sqlRequest, [$profilId]);
+	return $resultReq;
+}
+
+function countFollowed($app, $profilId)
+{
+	$sqlRequest = 'SELECT COUNT(*) AS "count" FROM `followers` WHERE `user_id` = ?';
+	$resultReq = $app['db']->fetchAll($sqlRequest, [$profilId]);
+	return $resultReq;
+}
+
+function countFollower($app, $profilId)
+{
+	$sqlRequest = 'SELECT COUNT(*) AS "count" FROM `followers` WHERE `followed_id` = ?';
 	$resultReq = $app['db']->fetchAll($sqlRequest, [$profilId]);
 	return $resultReq;
 }

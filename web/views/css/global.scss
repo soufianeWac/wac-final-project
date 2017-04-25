@@ -40,6 +40,7 @@ header{
 	padding-right: 45px;
 	background: black;
 	position: relative;
+	z-index: 2;
 	img{
 		width: 120px;
 		height: 35px;
@@ -187,4 +188,64 @@ header{
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
+}
+
+.show-category{
+	color: #fff;
+	position: relative;
+	left: 150px;
+	top: 25px;
+	font-size: 1.9rem;
+	cursor: pointer;
+}
+
+.sidebar-mobile{
+	background: #515b61;
+	transition: 0.3s;
+	position: relative;
+	z-index: 2;
+}
+.sidebar-mobile ul{
+	margin-bottom: 0px;
+}
+.title-category{
+	margin-bottom: 20px;
+	padding-inline-start: 20px !important;
+	padding-block-start: 10px !important;
+	padding-block-end: 10px !important;
+	color: white;
+	text-transform: uppercase;
+	font-weight: 700;
+	border-top: 1px solid #67737a;
+	width: auto;
+	background-color: #384249;
+}
+.list-category{
+	padding-block-end: 20px !important;
+}
+.list-category li{
+	padding-inline-start: 30px !important;
+	padding-block-end: 5px !important;
+	padding-block-start: 3px !important;
+	color: white;
+	font-size: 1.3rem;
+	cursor: pointer;
+	font-weight: 700;
+}
+.list-category li:hover{
+	background: #67737a;
+}
+.list-category li:last-child{
+	border-bottom: 1px solid #515b61;
+}
+.list-category i{
+	padding: 5px 7px;
+	background: #72baed;
+	margin-right: 5px;
+	width: 30px;
+	text-align: center;
+}
+.no-visible{
+	transition: 0.3s;
+	margin-top: -340px;
 }

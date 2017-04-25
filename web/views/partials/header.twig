@@ -8,7 +8,25 @@
 	<link rel="stylesheet" type="text/css" href="{{ absolute_url('views/css/styles.css') }}">
 </head>
 <body>
+<div class="sidebar-mobile no-visible">
+		<ul>
+			<li class="title-category">Catégories</li>
+			<ul class="list-category">
+				<a href="/category1"><li><i class="fa fa-music" aria-hidden="true"></i>Chanson - {{ countVideosInCat.Chanson.count }} vidéo</li></a>
+				<a href="/category2"><li><i class="fa fa-cloud" aria-hidden="true"></i>Tutoriel - {{ countVideosInCat.Tutoriel.count }}</li></a>
+				<a href="/category3"><li><i class="fa fa-university" aria-hidden="true"></i>Politique - {{ countVideosInCat.Politique.count }}</li></a>
+				<a href="/category4"><li><i class="fa fa-globe" aria-hidden="true"></i>Culture - {{ countVideosInCat.Culture.count }}</li></a>
+				<a href="/category5"><li><i class="fa fa-film" aria-hidden="true"></i>Cinema - {{ countVideosInCat.Cinema.count }}</li></a>
+				<a href="/category6"><li><i class="fa fa-gamepad" aria-hidden="true"></i>Jeux et Technologie - {{ countVideosInCat.JeuxAndtech.count }}</li></a>
+				<a href="/category7"><li><i class="fa fa-futbol-o" aria-hidden="true"></i>Sport - {{ countVideosInCat.Sport.count }}</li></a>
+				<a href="/category8"><li><i class="fa fa-hashtag" aria-hidden="true"></i>Divers - {{ countVideosInCat.Divers.count }}</li></a>
+			</ul>
+		</ul>
+	</div>
 <header>
+	<div class="show-category">
+		<i class="fa fa-bars" aria-hidden="true"></i>
+	</div>
 	<img src="{{ absolute_url('views/img/logo2_white.png') }}">
 	<form>
 		<input type="text" name="search-video">
@@ -17,7 +35,7 @@
 	{% if userPageProfil is defined %}
 		{% if userConnected == true and userPageProfil != null %}
 			<div class="avatar">
-				<img {% if userPageProfil.avatar != 'none'%} src="{{ absolute_url('avatar/') }}{{userPageProfil.id}}/{{ userPageProfil.avatar }}" {% else %} src="{{ absolute_url('views/img/avatar.png') }}" {% endif %}/>
+				<img {% if userPageProfil.avatar != 'none'%} src="{{ absolute_url('avatar/') }}{{userConnected.userInfo}}/{{ userPageProfil.avatar }}" {% else %} src="{{ absolute_url('views/img/avatar.png') }}" {% endif %}/>
 			</div>
 		{% endif %}
 	{% endif %}

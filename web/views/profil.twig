@@ -37,9 +37,9 @@
 			{% endif %}
 		</div>
 		<div class="stat">
-			<div class="inline"><span class="nbr">12</span><span>vidéos</span></div>
-			<div class="inline"><span class="nbr">12</span><span>followers</span></div>
-			<div class="inline"><span class="nbr">12</span><span>followeds</span></div>
+			<div class="inline"><span class="nbr">{{nbrVideo.count}}</span><span>vidéo</span></div>
+			<div class="inline"><span class="nbr">{{nbrFollower.0.count}}</span><span>follower</span></div>
+			<div class="inline"><span class="nbr">{{nbrFollowed.0.count}}</span><span>followed</span></div>
 		</div>
 	</div>
 
@@ -54,7 +54,7 @@
 			<div class="block-last-video">
 				<h3>Dernière vidéo ajoutée</h3>
 				<div class="col-md-7">
-					<video src="{{ absolute_url('video_h/') }}{{lastVideo.user_id}}/{{lastVideo.file}}" type="application/x-troff-msvideo" autoplay loop controls="controls" preload="none"></video>
+					<video src="{{ absolute_url('video_h/') }}{{lastVideo.user_id}}/{{lastVideo.file}}" type="application/x-troff-msvideo" loop controls="controls" preload="none"></video>
 				</div>
 				<div class="col-md-5 block-info-video">
 					<a href="{{ absolute_url('/video') }}{{lastVideo.id}}"><h4>{{lastVideo.name}}</h4></a>
@@ -68,6 +68,7 @@
 		</div>
 	</div>
 	{% else %}
+	{% if userConnected == true %}
 		<div class="add-video-block">
 			<h1>Vous n'avez posté aucune vidéo</h1>
 			<h3>N'attendez plus, ajoutez en une :) </h3>
@@ -75,6 +76,7 @@
 			<a href="/usr{{userConnected.userInfo}}/add_video"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a>
 			</div>
 		</div>
+		{% endif %}
 	{% endif %}
 
 {% if listOfRecentPost != null %}
@@ -96,7 +98,6 @@
 			<div class="container">
 				<div class="row">
 				<h1>Vidéos de vos fans</h1>
-			
 						<h3>Vidéos de followers</h3>
 						{% for globalInfos in listVideoUserFollowed %}
 							{% for globalInfo in globalInfos %}

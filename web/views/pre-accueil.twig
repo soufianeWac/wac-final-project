@@ -16,10 +16,10 @@
 			<h1>Vidincloud un cloud et bien plus</h1>
 		</div>
 		<div class="search-container">
-				<form>
-					<input type="text" name="search-video" class="search-input" placeholder="Recherche rapide">
+				{{form_start(form)}}
+					{{form_widget(form.videosearch,{'attr':{'class':'search-input', 'placeholder': 'Recherche rapide'}})}}
 					<button type="submit" name="submitForm"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;</button><br>
-				</form>
+				{{form_end(form)}}
 		</div>
 		<div class="legal">
 			<p>Pour en savoir plus&nbsp;<a href="/a-propos">[ cliquez ici ]</a></p>

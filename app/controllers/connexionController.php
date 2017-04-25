@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 $app->match('/connexion', function(Request $request) use ($app)
 {
   $app['request'] = $request;
-
+  $countVideosInCat = renderNbrOfVideoInCategory($app);
   //verify if session exist, if is defined redirect to login else set session and go to process of connexion
   if($usrSess = $app['session']->get('user'))
   {
@@ -43,7 +43,10 @@ $app->match('/connexion', function(Request $request) use ($app)
       }
     }
   }
-  return $app['twig']->render('/connexion.twig', array('form' => $form->createView()));
+  return $app['twig']->render('/connexion.twig', array(
+    'form' => $form->createView(),
+    'countVideosInCat' => $countVideosInCat
+  ));
   
 });
 

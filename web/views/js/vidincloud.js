@@ -116,6 +116,11 @@ $(document).ready(function(){
       $(this).toggleClass('toggle-btn');
       $('.delete-account').toggleClass('toggle-btn');
     });
+
+    $('.show-category').click(function()
+    {
+      $('.sidebar-mobile').toggleClass('no-visible');
+    });
 });
 
 function deleteCom(idCom)

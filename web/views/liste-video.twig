@@ -1,0 +1,7 @@
+{% include 'partials/header.twig' %}
+{% for listVideo in listVideos %}
+	<div class="block-result">
+		<a href="/video{{listVideo.id}}">{{listVideo.name}}</a>
+	</div>
+{% endfor %}
+{% include 'partials/footer.twig' %}

@@ -72,10 +72,20 @@ $app->match('/usr{id}', function(Request $request, $id) use($app)
 
 	$infoVideoFollowed = array_unique($newListVideoUserFollowed, SORT_REGULAR);
 
+	//count
+	$nbrVideo = countVideo($app, $id);
+	$nbrFollowed = countFollowed($app, $id);
+	$nbrFollower = countFollower($app, $id);
+	$countVideosInCat = renderNbrOfVideoInCategory($app);
+
 	return $app['twig']->render('profil.twig', [
 		'userConnected' => $userSession,
 		'userPageProfil' => $userProfil,
 		'lastVideo' => $lastVideo,
+		'nbrVideo' => $nbrVideo,
+		'nbrFollowed' => $nbrFollowed,
+		'nbrFollower' => $nbrFollower,
+		'countVideosInCat' => $countVideosInCat,
 		'dateLastVideo' => formatDatePost($dateVideo),
 		'dateUser' => $dateUser,
 		'category' => $category,

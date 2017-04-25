@@ -32,6 +32,7 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
   'twig.path' => __DIR__.'/views',
   'twig.options' => array('debug' => true),
 ));
+
 $app['debug'] = true;
 
 require_once __DIR__.'/../app/configDev.php';
@@ -43,6 +44,7 @@ require_once __DIR__.'/../app/controllers/homeController.php';
 require_once __DIR__.'/../app/controllers/videoController.php';
 require_once __DIR__.'/../app/controllers/categoryController.php';
 require_once __DIR__.'/../app/controllers/followerController.php';
+
 
 $app->error(function(\Exception $e, Request $request) use ($app) {
   $app['request'] = $request;

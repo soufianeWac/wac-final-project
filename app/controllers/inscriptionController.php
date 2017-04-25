@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 require_once __DIR__.'/../models/requestList.php';
 
 $app->match('/inscription', function(Request $request) use($app){
+  $countVideosInCat = renderNbrOfVideoInCategory($app);
   if($usrSess = $app['session']->get('user'))
   {
     return $app->redirect($_SERVER['HTTP_REFERER']);
@@ -51,12 +52,13 @@ $app->match('/inscription', function(Request $request) use($app){
       return $app->redirect('/validation'.$lastUserId);
     }
   }
-  $formView = ['participFormView' => $form->createView()];
+  $formView = ['participFormView' => $form->createView(), 'countVideosInCat' => $countVideosInCat];
   return $app['twig']->render('inscription.twig', $formView);
 });
 
 $app->match('/validation{id}', function(Request $request, $id) use($app)
 {
+  $countVideosInCat = renderNbrOfVideoInCategory($app);
   $validation = userInfo($app, $id);
   if($validation['valid'] != 0 || $validation == false)
   {
@@ -84,6 +86,6 @@ $app->match('/validation{id}', function(Request $request, $id) use($app)
         }
       }
     }
-    return $app['twig']->render('token.twig', ['form' => $form->createView()]);
+    return $app['twig']->render('token.twig', ['form' => $form->createView(), 'countVideosInCat' => $countVideosInCat]);
   }
 });
